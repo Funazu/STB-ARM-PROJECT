@@ -28,3 +28,4 @@ armbian-docker
   
   
 Terimakasih untuk [ophub](https://github.com/ophub) yang telah menyediakan file iso armbian untuk amlogic s905x
+*Markdown ini di ambil dari repo bang [hafidhh](https://github.com/hafidhh/B860H-HG680P-Armbian)
