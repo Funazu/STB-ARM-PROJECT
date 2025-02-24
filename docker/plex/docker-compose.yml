@@ -1,0 +1,40 @@
+version: '3'
+services:
+  jdownloader:
+    image: jlesage/jdownloader-2
+    container_name: jdownloader
+    restart: unless-stopped
+    ports:
+      - "5800:5800"  # Web UI
+    environment:
+      - USER_ID=1000
+      - GROUP_ID=1000
+      - TZ=Asia/Jakarta
+    volumes:
+      - ./jdownloader/config:/config
+      - ./jdownloader/downloads:/output  # Folder download JDownloader
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: "512M"
+
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - TZ=Asia/Jakarta
+      - PLEX_CLAIM=claim-Hes3zq3vctszX8mn3Cbz # Opsional, dapatkan dari https://www.plex.tv/claim/
+    volumes:
+      - ./plex/config:/config
+      - ./jdownloader/downloads:/movies  # Sinkronisasi folder downloads JDownloader ke movies di Plex
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: "1G"
